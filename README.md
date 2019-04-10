@@ -3,7 +3,8 @@
 Done:
 - Repository
 - User API exposed via rest
-ToDo:
+InProgress:
 - Setup UI
+NotStarted:
 - Setup security
 - Setup reCaptcha
