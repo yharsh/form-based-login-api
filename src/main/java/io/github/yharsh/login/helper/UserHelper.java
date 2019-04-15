@@ -28,7 +28,7 @@ public class UserHelper {
             userRepository.insert(user);
         } catch (DuplicateKeyException e) {
             logger.error("User creation failed", e);
-            throw new UserAlreadyExistsException("User creation failed due to conflict of email id");
+            throw new UserAlreadyExistsException("Email id is already taken");
         }
     }
 

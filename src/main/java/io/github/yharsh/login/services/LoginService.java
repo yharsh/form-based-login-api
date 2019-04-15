@@ -1,5 +1,6 @@
 package io.github.yharsh.login.services;
 
+import io.github.yharsh.login.Util;
 import io.github.yharsh.login.domain.User;
 import io.github.yharsh.login.exception.BadRequestException;
 import io.github.yharsh.login.exception.UserAlreadyExistsException;
@@ -15,15 +16,17 @@ public class LoginService {
     @Autowired
     private UserHelper userHelper;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping("/user")
-    public User getUserDetails(@RequestParam(value = "emailId", defaultValue = "noname@domain.com") String name) {
+    public User getUserDetails() {
         try {
-            return userHelper.get(name);
+            return userHelper.get(Util.currentLoggedinUser());
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void createUser(@RequestBody User user) throws Exception {
         try {

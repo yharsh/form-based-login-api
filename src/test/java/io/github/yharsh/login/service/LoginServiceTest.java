@@ -1,13 +1,16 @@
 package io.github.yharsh.login.service;
 
 import io.github.yharsh.login.LogonApplication;
+import io.github.yharsh.login.captcha.CaptchaService;
 import io.github.yharsh.login.domain.User;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -27,22 +30,25 @@ Integration tests
 public class LoginServiceTest {
     @Autowired
     private MockMvc loginSvc;
+    @MockBean
+    private CaptchaService captchaService;
 
     @Test
     public void createUser_should_return_Ok_for_valid_request() throws Exception {
         String emailId = "user@domain.com";
         String password = "Password@123";
         String userJson = "{\"emailId\":\"" + emailId + "\",\"password\":\"" + password + "\"}";
+        Mockito.doNothing().when(captchaService).verify(org.mockito.Matchers.anyString());
         User user = new User(emailId, password);
         loginSvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON).content(userJson))
                 .andExpect(status().isOk());
-        loginSvc.perform(get("/user?emailId=" + emailId)).andExpect(status().isOk()).andExpect(jsonPath("emailId", Matchers.is(emailId)));
     }
 
     @Test
     public void createUser_should_return_Bad_Request_for_invalid_request() throws Exception {
         String userJson = "{\"emailId\":\"\",\"password\":\"\"}";
+        Mockito.doNothing().when(captchaService).verify(org.mockito.Matchers.anyString());
         loginSvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON).content(userJson))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
@@ -55,6 +61,7 @@ public class LoginServiceTest {
         String password = "Password@123";
         String userJson = "{\"emailId\":\"" + emailId + "\",\"password\":\"" + password + "\"}";
         User user = new User(emailId, password);
+        Mockito.doNothing().when(captchaService).verify(org.mockito.Matchers.anyString());
         loginSvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON).content(userJson))
                 .andExpect(status().isOk());
@@ -62,10 +69,5 @@ public class LoginServiceTest {
         loginSvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON).content(userJson))
                 .andExpect(status().is(HttpStatus.CONFLICT.value()));
-    }
-
-    @Test
-    public void testGetUser_should_return_Not_Found_when_user_does_not_exist() throws Exception {
-        loginSvc.perform(get("/user?emailId=notexisting")).andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 }

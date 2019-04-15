@@ -1,10 +1,10 @@
-package io.github.yharsh.login.configuration;
+package io.github.yharsh.login.captcha;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "google.recaptcha.key")
+@ConfigurationProperties(prefix = "google.recaptcha")
 public class CaptchaSettings {
     private String siteKey;
     private String secretKey;

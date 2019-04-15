@@ -1,10 +1,6 @@
 # Getting Started
 
-Done:
-- Repository
-- User API exposed via rest
-InProgress:
-- Setup UI
-NotStarted:
-- Setup security
-- Setup reCaptcha
+How to run:
+- mvn clean install
+- java -jar target/form-based-login-api-0.0.1-SNAPSHOT.jar
+- access localhost:8080

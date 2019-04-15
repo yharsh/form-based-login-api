@@ -13,6 +13,7 @@ public class User {
     private String password;
     private String name;
     private Long phoneNumber;
+    private String recaptchaToken;
 
     public User(){
     }
@@ -60,5 +61,13 @@ public class User {
 
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getRecaptchaToken() {
+        return recaptchaToken;
+    }
+
+    public void setRecaptchaToken(String recaptchaToken) {
+        this.recaptchaToken = recaptchaToken;
     }
 }
