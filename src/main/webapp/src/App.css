@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eee;
+}
+
+.app-form {
+  max-width: 330px !important;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-control, .app-form a {
+  margin: 10px auto;
+}
+
+.app-form a {
+  display: inline-block;
+}
+
+.app-form button {
+  width: 100%;
+}
