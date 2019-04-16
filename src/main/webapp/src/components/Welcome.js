@@ -1,5 +1,3 @@
-import { loggedIn } from '../services/login';
-import { Redirect } from 'react-router-dom';
 import React from 'react';
 import axios from 'axios';
 import { USER_URL } from '../services/constants';
@@ -16,12 +14,13 @@ export class Welcome extends React.Component {
                 ...res.data
             });
         }).catch(e => {
-            this.setState({ msg: JSON.stringify(e) });
+            console.log(e);
+            this.setState({ msg: 'Failed to fetch user details' });
         });
     }
 
     render() {
-        return loggedIn() ? <div className='app-form'>
+        return <div className='app-form'>
             <h3>Your credentials:</h3>
             <Alert msg={this.state.msg} />
             <table className='table'>
@@ -42,8 +41,12 @@ export class Welcome extends React.Component {
                         <th scope="row">Phone number</th>
                         <td>{this.state.phoneNumber}</td>
                     </tr>
+                    <tr>
+                        <th scope="row">Not {this.state.name}</th>
+                        <td><a href='/logout'>Signout</a></td>
+                    </tr>
                 </tbody>
             </table>
-        </div> : <Redirect to='login' />;
+        </div>;
     }
 }
