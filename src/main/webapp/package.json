@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "login-app",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
@@ -25,5 +25,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "proxy": "http://localhost:8080"
 }

@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.github.yharsh</groupId>
     <artifactId>form-based-login-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>form-based-login-api</name>
     <description>Login Module contains api for User Creation and Authentication</description>
 

@@ -1,6 +1,7 @@
 # Getting Started
 
-How to run:
+##How to run:
 - mvn clean install
-- java -jar target/form-based-login-api-0.0.1-SNAPSHOT.jar
-- access localhost:8080
+- java -jar target/form-based-login-api-1.0.jar
+- [Visit Home!](http://localhost:8080)
+- [Explore Documentation](http://localhost:8080/swagger-ui.html)
