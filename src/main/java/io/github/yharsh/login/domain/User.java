@@ -1,6 +1,7 @@
 package io.github.yharsh.login.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,9 +14,10 @@ public class User {
     private String password;
     private String name;
     private Long phoneNumber;
+    @Transient
     private String recaptchaToken;
 
-    public User(){
+    public User() {
     }
 
     public User(String emailId, String password) {
