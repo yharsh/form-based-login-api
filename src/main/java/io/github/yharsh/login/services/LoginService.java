@@ -8,17 +8,25 @@ import io.github.yharsh.login.exception.UserNotFoundException;
 import io.github.yharsh.login.helper.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class LoginService {
     @Autowired
     private UserHelper userHelper;
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/user")
-    public User getUserDetails() {
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public User getUser() {
         try {
             return userHelper.get(Util.currentLoggedinUser());
         } catch (UserNotFoundException e) {
@@ -26,7 +34,6 @@ public class LoginService {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void createUser(@RequestBody User user) throws Exception {
         try {
@@ -36,5 +43,14 @@ public class LoginService {
         } catch (UserAlreadyExistsException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login";
     }
 }
