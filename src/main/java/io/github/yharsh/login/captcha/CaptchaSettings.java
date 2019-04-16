@@ -10,6 +10,15 @@ public class CaptchaSettings {
     private String secretKey;
     private String siteVerify;
 
+    public CaptchaSettings() {
+    }
+
+    public CaptchaSettings(String siteKey, String secretKey, String siteVerify) {
+        this.siteKey = siteKey;
+        this.secretKey = secretKey;
+        this.siteVerify = siteVerify;
+    }
+
     public String getSiteKey() {
         return siteKey;
     }
